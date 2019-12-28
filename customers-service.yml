@@ -1,18 +1,20 @@
 ﻿spring:
-  profiles: default
-eureka:
-  instance:
-    # enable to register multiple app instances with a random server port
-    instance-id: ${spring.application.name}:${random.uuid}
-
----
-spring:
-  profiles: docker
-  zipkin:
-    baseUrl: http://tracing-server:9411
+  datasource:
+    url: jdbc:mysql://localhost:3306/bnkmicroservice?allowPublicKeyRetrieval=true&useSSL=FALSE
+    driver-class: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: update
+  application:
+    name: spring-bank-branch-service-eureka-client
 server:
-  port: 8081
+  port: 8090
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://discovery-server:8761/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+    
